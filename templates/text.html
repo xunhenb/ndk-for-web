@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试页面</title>
+</head>
+<body>
+    <h1>测试页面</h1>
+    <p>如果能看到这个页面，说明模板渲染正常</p>
+    
+    <h2>上传测试</h2>
+    <form action="/compile" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".zip">
+        <button type="submit">上传并编译</button>
+    </form>
+    
+    <h2>服务器状态</h2>
+    <button onclick="checkServer()">检查服务器状态</button>
+    <div id="status"></div>
+    
+    <script>
+        async function checkServer() {
+            try {
+                const response = await fetch('/test');
+                const data = await response.json();
+                document.getElementById('status').innerHTML = 
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                document.getElementById('status').innerHTML = '错误: ' + error;
+            }
+        }
+    </script>
+</body>
+</html>
